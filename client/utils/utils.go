@@ -42,6 +42,24 @@ func LeerConsola() {
 	log.Print(text)
 }
 
+func LeerConsolaHastaVacio() {
+	// Leer de la consola
+	fmt.Println("Ingresa los mensages")
+
+	for {
+
+		reader := bufio.NewReader(os.Stdin)
+		text, _ := reader.ReadString('\n')
+
+		if text == string('\n') {
+			break
+		}
+
+		log.Print(text)
+	}
+
+}
+
 func GenerarYEnviarPaquete() {
 	paquete := Paquete{}
 	// Leemos y cargamos el paquete
@@ -82,10 +100,11 @@ func EnviarPaquete(ip string, puerto int, paquete Paquete) {
 }
 
 func ConfigurarLogger() {
-	logFile, err := os.OpenFile("tp0.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	logFile, err := os.OpenFile("/home/luca/Desktop/tp0-golang/client/tp0.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		panic(err)
 	}
 	mw := io.MultiWriter(os.Stdout, logFile)
 	log.SetOutput(mw)
+
 }

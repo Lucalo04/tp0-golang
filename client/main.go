@@ -9,20 +9,20 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	log.Println("hola")
+	
 	// loggear "Hola soy un log" usando la biblioteca log
-
-	globals.ClientConfig = utils.IniciarConfiguracion("/home/luca/Desktop/tp0-golang/client/config.json")
+	//log.Println("hola")
+	
 	// validar que la config este cargada correctamente
+	globals.ClientConfig = utils.IniciarConfiguracion("config.json")
 
+
+
+	// loggeamos el valor de la config
 	log.Println(globals.ClientConfig.Ip)
 	log.Println(globals.ClientConfig.Mensaje)
 	log.Println(globals.ClientConfig.Puerto)
-
-	// loggeamos el valor de la config
-
-
-	utils.LeerConsolaHastaVacio()
+	
 
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
 
@@ -30,6 +30,7 @@ func main() {
 
 	// leer de la consola el mensaje
 	// utils.LeerConsola()
+	utils.LeerConsolaHastaVacio()
 
 	// generamos un paquete y lo enviamos al servidor
 	// utils.GenerarYEnviarPaquete()

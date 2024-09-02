@@ -23,9 +23,15 @@ type Paquete struct {
 func IniciarConfiguracion(filePath string) *globals.Config {
 	var config *globals.Config
 	configFile, err := os.Open(filePath)
+
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	if config == nil {
+		log.Fatalf("No se pudo cargar la configuración")
+	}
+
 	defer configFile.Close()
 
 	jsonParser := json.NewDecoder(configFile)
@@ -100,7 +106,7 @@ func EnviarPaquete(ip string, puerto int, paquete Paquete) {
 }
 
 func ConfigurarLogger() {
-	logFile, err := os.OpenFile("/home/luca/Desktop/tp0-golang/client/tp0.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	logFile, err := os.OpenFile("tp0.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		panic(err)
 	}

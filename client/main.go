@@ -3,7 +3,7 @@ package main
 import (
 	"client/globals"
 	"client/utils"
-	"log"
+	//"log"
 )
 
 func main() {
@@ -16,22 +16,12 @@ func main() {
 	// validar que la config este cargada correctamente
 	globals.ClientConfig = utils.IniciarConfiguracion("config.json")
 
+	utils.EnviarMensaje(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, globals.ClientConfig.Mensaje)
+
+	//Clave
+	utils.EnviarMensaje(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, globals.ClientConfig.Clave)
+
+	utils.GenerarYEnviarPaquete()
 
 
-	// loggeamos el valor de la config
-	log.Println(globals.ClientConfig.Ip)
-	log.Println(globals.ClientConfig.Mensaje)
-	log.Println(globals.ClientConfig.Puerto)
-	
-
-	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
-
-	// enviar un mensaje al servidor con el valor de la config
-
-	// leer de la consola el mensaje
-	// utils.LeerConsola()
-	utils.LeerConsolaHastaVacio()
-
-	// generamos un paquete y lo enviamos al servidor
-	// utils.GenerarYEnviarPaquete()
 }

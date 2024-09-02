@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type Mensaje struct {
@@ -28,10 +29,6 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 		log.Fatal(err.Error())
 	}
 
-	if config == nil {
-		log.Fatalf("No se pudo cargar la configuración")
-	}
-
 	defer configFile.Close()
 
 	jsonParser := json.NewDecoder(configFile)
@@ -48,9 +45,11 @@ func LeerConsola() {
 	log.Print(text)
 }
 
-func LeerConsolaHastaVacio() {
-	// Leer de la consola
-	fmt.Println("Ingresa los mensages")
+func GenerarPaquete() Paquete {
+
+	fmt.Println("Ingresa los mensajes")
+
+	var lineas []string
 
 	for {
 
@@ -61,17 +60,25 @@ func LeerConsolaHastaVacio() {
 			break
 		}
 
-		log.Print(text)
+		text = strings.TrimSpace(text)
+
+		lineas = append(lineas, text)
 	}
 
+	paquete_new := Paquete{Valores: lineas}
+
+	return paquete_new
 }
 
 func GenerarYEnviarPaquete() {
-	paquete := Paquete{}
+	paquete := GenerarPaquete()
+
 	// Leemos y cargamos el paquete
 
-	log.Printf("paqute a enviar: %+v", paquete)
+	log.Printf("paquete a enviar: %+v", paquete)
 	// Enviamos el paqute
+
+	EnviarPaquete(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, paquete)
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
